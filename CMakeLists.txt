@@ -20,7 +20,9 @@ add_library(tensorboard_logger
 )
 
 target_compile_features(tensorboard_logger PRIVATE cxx_std_11)
-target_compile_options(tensorboard_logger PRIVATE -Wall -O2)
+if(NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_compile_options(tensorboard_logger PRIVATE -Wall -O2)
+endif()
 
 target_include_directories(tensorboard_logger
 PUBLIC
