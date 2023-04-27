@@ -11,7 +11,7 @@ find_package(Protobuf REQUIRED)
 
 file(GLOB protos "proto/*.proto")
 
-protobuf_generate_cpp(PROTO_SRCS PROTO_HDRS ${protos})
+PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS ${protos} --allow-old-syntax)
 
 add_library(tensorboard_logger
     "src/crc.cc"
