@@ -11,7 +11,12 @@ find_package(Protobuf REQUIRED)
 
 file(GLOB protos "proto/*.proto")
 
-PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS ${protos} --allow-old-syntax)
+if(PROTOBUF_PROTOC_EXECUTABLE)
+  set(PROTOBUF_PROTOC_EXECUTABLE_WITH_FLAGS "${PROTOBUF_PROTOC_EXECUTABLE} --allow-old-syntax")
+  set(PROTOBUF_PROTOC_EXECUTABLE ${PROTOBUF_PROTOC_EXECUTABLE_WITH_FLAGS} CACHE INTERNAL "Path to protoc compiler with --allow-old-syntax flag")
+endif()
+
+PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS ${protos})
 
 add_library(tensorboard_logger
     "src/crc.cc"
